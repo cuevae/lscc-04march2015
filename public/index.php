@@ -17,8 +17,8 @@ $app->get('/', function (Request $request, Application $app) {
         $numbers = explode(',', $var[2]);
         return new Response(max($numbers));
     } elseif (preg_match_all('/[0-9a-z]+: what is (\d+) plus (\d+)/', $question, $matches) > 0) {
-        $numbers = array_shift($matches);
-        return new Response(array_sum($numbers));
+        array_shift($matches);
+        return new Response(array_sum($matches));
     }
 
 });
