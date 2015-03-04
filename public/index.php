@@ -35,6 +35,13 @@ $app->get('/', function (Request $request, Application $app) {
             return $result;
         }, array());
         return new Response(array_sum($numbers));
+    } elseif (preg_match_all('/[0-9a-z]+: what is (\d+) multiplied by (\d+)/', $question, $matches) > 0) {
+        array_shift($matches);
+        $number = array_reduce($matches, function ($result, $item) {
+            $result *= intval($item[0]);
+            return $result;
+        }, 1);
+        return new Response($number);
     } elseif (preg_match_all('/[0-9a-z]+: what currency did Spain use before the Euro/', $question) > 0) {
         return new Response('Peseta');
     } else {
