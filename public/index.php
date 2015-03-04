@@ -18,7 +18,11 @@ $app->get('/', function (Request $request, Application $app) {
         return new Response(max($numbers));
     } elseif (preg_match_all('/[0-9a-z]+: what is (\d+) plus (\d+)/', $question, $matches) > 0) {
         array_shift($matches);
-        return new Response(array_sum($matches));
+        $numbers = array_reduce($matches, function($result, $item){
+            $result[] = intval($item[0]);
+            return $result;
+        }, array());
+        return new Response(array_sum($numbers));
     }
 
 });
