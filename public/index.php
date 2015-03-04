@@ -49,23 +49,19 @@ $app->get('/', function (Request $request, Application $app) {
         return new Response('David Cameron');
     } elseif (preg_match_all('/[0-9a-z]+: which city is the Eiffel tower in/', $question) > 0) {
         return new Response('Paris');
+    } elseif (preg_match_all('/[0-9a-z]+: who played James Bond in the film Dr No/', $question) > 0) {
+        return new Response('Sean Connery');
     } else {
         $var     = explode(':', $question);
         $numbers = explode(',', $var[2]);
-
-        $flag = 0;
         foreach ($numbers as $number) {
             if (isSqr($number)
                 && isCube($number)
             ) {
-                $flag = 1;
                 return new Response($number);
             }
         }
-
-        if (!$flag) {
-            return new Response();
-        }
+        return new Response();
     }
 
 });
