@@ -1,0 +1,28 @@
+{
+  "require": {
+    "php": ">=5.4",
+    "symfony/security": "*",
+    "monolog/monolog": "*",
+    "silex/silex": "~1.2",
+    "propel/propel": "~2.0@dev",
+    "symfony/config": "~2.5",
+    "symfony/dependency-injection": "*",
+    "jdesrosiers/silex-cors-provider": "~0.1",
+    "ml/json-ld": "1.*",
+    "twig/twig": "~1.18",
+    "symfony/twig-bridge": "~2.6",
+    "twig/extensions": "~1.1.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "*",
+    "behat/behat": "~3.0.6"
+  },
+  "config": {
+    "bin-dir": "bin"
+  },
+  "autoload": {
+    "psr-4": {
+      "": "src/"
+    }
+  }
+}
