@@ -16,7 +16,7 @@ function isSqr($number)
 
 function isCube($number)
 {
-    $res = pow($number, 1/3);
+    $res = pow($number, 1 / 3);
     return strpos($res, '.') === false;
 }
 
@@ -30,20 +30,22 @@ $app->get('/', function (Request $request, Application $app) {
         return new Response(max($numbers));
     } elseif (preg_match_all('/[0-9a-z]+: what is (\d+) plus (\d+)/', $question, $matches) > 0) {
         array_shift($matches);
-        $numbers = array_reduce($matches, function($result, $item){
+        $numbers = array_reduce($matches, function ($result, $item) {
             $result[] = intval($item[0]);
             return $result;
         }, array());
         return new Response(array_sum($numbers));
-    }else{
+    } elseif (preg_match_all('/[0-9a-z]+: what currency did Spain use before the Euro/', $question) > 0) {
+        return new Response('Peseta');
+    } else {
         $var     = explode(':', $question);
         $numbers = explode(',', $var[2]);
 
         $flag = 0;
-        foreach($numbers as $number)
-        {
-            if(isSqr($number)
-               && isCube($number)){
+        foreach ($numbers as $number) {
+            if (isSqr($number)
+                && isCube($number)
+            ) {
                 $flag = 1;
                 return new Response($number);
             }
