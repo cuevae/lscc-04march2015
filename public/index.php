@@ -8,16 +8,19 @@ use \Symfony\Component\HttpFoundation\Response;
 
 $app = new Application();
 
-$app->get('/', function(Request $request, Application $app){
+$app->get('/', function (Request $request, Application $app) {
 
     $question = $request->get('q');
-// ?q=49c14a70:%20which%20of%20the%20following%20numbers%20is%20the%20largest:%2052,%20812
 
+    if (preg_match('/which of the following numbers is the largest/', $question) > 0) {
+        $var     = explode(':', $question);
+        $numbers = explode(',', $var[2]);
+        return new Response(max($numbers));
+    } elseif (preg_match_all('/[0-9a-z]+: what is (\d+) plus (\d+)/', $question, $matches) > 0) {
+        $numbers = array_shift($matches);
+        return new Response(array_sum($numbers));
+    }
 
-    $var = explode(':', $question);
-    $numbers = explode(',', $var[2]);
-
-    return new Response(max($numbers));
 });
 
 $app->run();
