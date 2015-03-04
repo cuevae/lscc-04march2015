@@ -47,7 +47,8 @@ $app->get('/', function (Request $request, Application $app) {
     } elseif (preg_match_all('/[0-9a-z]+: who is the Prime Minister of Great Britain/', $question) > 0) {
         //62.172.95.210 - - [04/Mar/2015:14:30:49 -0600] "GET /?q=448627b0: who is the Prime Minister of Great Britain HTTP/1.1" 200 161 "-" "-"
         return new Response('David Cameron');
-    
+    } elseif (preg_match_all('/[0-9a-z]+: which city is the Eiffel tower in/', $question) > 0) {
+        return new Response('Paris');
     } else {
         $var     = explode(':', $question);
         $numbers = explode(',', $var[2]);
