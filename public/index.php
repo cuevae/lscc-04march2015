@@ -8,6 +8,18 @@ use \Symfony\Component\HttpFoundation\Response;
 
 $app = new Application();
 
+function isSqr($number)
+{
+    $res = sqrt($number);
+    return strpos($res, '.') === false;
+}
+
+function isCube($number)
+{
+    $res = pow($number, 1/3);
+    return strpos($res, '.') === false;
+}
+
 $app->get('/', function (Request $request, Application $app) {
 
     $question = $request->get('q');
@@ -23,6 +35,23 @@ $app->get('/', function (Request $request, Application $app) {
             return $result;
         }, array());
         return new Response(array_sum($numbers));
+    }else{
+        $var     = explode(':', $question);
+        $numbers = explode(',', $var[2]);
+
+        $flag = 0;
+        foreach($numbers as $number)
+        {
+            if(isSqr($number)
+               && isCube($number)){
+                $flag = 1;
+                return new Response($number);
+            }
+        }
+
+        if (!$flag) {
+            return new Response();
+        }
     }
 
 });
